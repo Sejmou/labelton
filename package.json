@@ -1,0 +1,21 @@
+{
+  "name": "labelton",
+  "version": "1.0.0",
+  "description": "Super basic NodeJS script to export locators from an Ableton project and save them to a JSON file.",
+  "main": "index.js",
+  "bin": {
+    "labelton": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "export:locators": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.23.0",
+  "dependencies": {
+    "ableton-js": "^4.0.4"
+  }
+}
