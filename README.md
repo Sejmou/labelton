@@ -1,16 +1,28 @@
 # labelton
 
-Export locators from the currently open Ableton Live project to a JSON file using `ableton-js`.
+Export locators from the currently open Ableton Live project to a JSON file using [`ableton-js`](https://github.com/leolabs/ableton-js/tree/v3.4.1).
 
 ## What this does
 
 - Connects to your running Ableton Live instance.
 - Reads all song locators (Ableton cue points).
-- Exports them to JSON with both:
-  - `timeBeats` (Ableton-native time)
-  - `timeSeconds` (portable time for external tools)
+- Exports them to a JSON file with the following fields:
+  - `locators` (an array of objects with the following fields):
+    - `index` (the index of the locator)
+    - `id` (the ID of the locator)
+    - `name` (the name of the locator)
+    - `timeBeats` (Ableton-native time)
+    - `timeSeconds` (portable time for external tools)
+  - `exportedAt` (ISO timestamp of the export)
+  - `source` (source of the data: "Ableton Live via ableton-js")
+  - `tempoBpm` (the project's tempo in BPM)
+  - `locatorCount` (the number of locators found)
 
-> CAVEAT: I've only tested this on my Mac running Ableton Live 10!
+The idea behind this is to be able to use the locator information in other audio editingtools, e.g. if you're exporting the stems and want to allow people using other programs to make use of the locators.
+
+I am currently trying to hack together a script for Audacity that is able to parse such a 'locator JSON' file and add markers accordingly. If it will work out, I'll link it here.
+
+> CAVEAT: I've only tested this on my Mac running Ableton Live 10 with ableton-js v3.4.1 (I have used that specific version successfully in another project), but not on v4.0.4. I haven't tested any other versions.
 
 ## Prerequisites
 
