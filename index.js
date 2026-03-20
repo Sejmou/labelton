@@ -1,10 +1,26 @@
 #!/usr/bin/env node
+// @ts-check
 
 const fs = require("node:fs/promises");
 const path = require("node:path");
 
 const DEFAULT_OUTPUT_FILENAME = "ableton-locators.json";
 const CONNECTION_TIMEOUT_MS = 5000;
+
+/**
+ * @typedef {Object} CliArgs
+ * @property {string} outputPath
+ * @property {boolean} showHelp
+ */
+
+/**
+ * @typedef {Object} ExportLocator
+ * @property {number} index
+ * @property {string} id
+ * @property {string} name
+ * @property {number} timeBeats
+ * @property {number} timeSeconds
+ */
 
 function printHelp() {
   console.log(`labelton - Export Ableton Live locators to JSON
@@ -24,7 +40,12 @@ Examples:
 `);
 }
 
+/**
+ * @param {string[]} argv
+ * @returns {CliArgs}
+ */
 function parseArgs(argv) {
+  /** @type {CliArgs} */
   const result = {
     outputPath: path.resolve(process.cwd(), DEFAULT_OUTPUT_FILENAME),
     showHelp: false,
@@ -63,6 +84,11 @@ function parseArgs(argv) {
   return result;
 }
 
+/**
+ * @param {number} beats
+ * @param {number} tempo
+ * @returns {number}
+ */
 function toSeconds(beats, tempo) {
   return Number((beats * (60 / tempo)).toFixed(6));
 }
@@ -75,6 +101,7 @@ async function run() {
     return;
   }
 
+  /** @type {import("ableton-js").Ableton | null} */
   let ableton = null;
 
   try {
@@ -98,6 +125,7 @@ async function run() {
       `Found ${cuePoints.length} locator(s). Converting beat time to seconds using tempo ${tempo} BPM...`
     );
 
+    /** @type {ExportLocator[]} */
     const locators = cuePoints.map((cuePoint, index) => ({
       index,
       id: cuePoint.raw.id,
