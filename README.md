@@ -10,25 +10,25 @@ Export locators from the currently open Ableton Live project to a JSON file usin
   - `timeBeats` (Ableton-native time)
   - `timeSeconds` (portable time for external tools)
 
+> CAVEAT: I've only tested this on my Mac running Ableton Live 10!
+
 ## Prerequisites
+
+Unfortunately, the setup is potentially a bit complicated if you're not a software dev, but hopefully you can find your way around with your AI chatbot of choice.
 
 Before running this script, make sure:
 
-1. Ableton Live is running.
-2. The target project is open in Ableton Live.
-3. The AbletonJS MIDI Remote Script is installed and active as a Control Surface.
-
-AbletonJS script location is typically:
-
-- `~/Music/Ableton/User Library/Remote Scripts/AbletonJS`
-
-If this is not configured, the CLI will fail to connect.
+1. You have NodeJS installed (note: you don't have to use pnpm, it should work with npm as well - I hope at least :sweat_smile:)
+2. You have downloaded and installed the MIDI scripts from the zip/tar archive of ableton-js v3.4.1 ([link](https://github.com/leolabs/ableton-js/releases/tag/v3.4.1)) - please refer to the [README of the project](https://github.com/leolabs/ableton-js/tree/v3.4.1) for details on how to install them.
+   > NOTE: the latest version as of this writing (v4.0.4) did not seem to work for me, maybe a different version might work for you though if you're on Ableton Live 11 or later.
 
 ## Install
 
 ```bash
 pnpm install
 ```
+
+This will basically just install the NodeJS code for ableton-js (the NodeJS script communicates with the MIDI scripts you copied earlier; those in turn communicate with Ableton Live).
 
 ## Usage
 
@@ -85,7 +85,7 @@ Example:
 }
 ```
 
-`timeSeconds` is computed from tempo:
+`timeSeconds` is computed from the project's tempo:
 
 `timeSeconds = timeBeats * (60 / tempoBpm)`
 

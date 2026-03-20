@@ -16,6 +16,6 @@
   "license": "ISC",
   "packageManager": "pnpm@10.23.0",
   "dependencies": {
-    "ableton-js": "^4.0.4"
+    "ableton-js": "3.4.1"
   }
 }
